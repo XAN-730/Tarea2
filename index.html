@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buscador de canciones</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="hero">
+        <p class="eyebrow">iTunes Search API</p>
+        <h1>Encuentra tu próxima canción</h1>
+        <p class="intro">
+          Busca canciones y escucha una muestra directamente desde el navegador.
+        </p>
+
+        <form id="search-form" class="search-form">
+          <label class="sr-only" for="search-input">Buscar canciones</label>
+          <input
+            id="search-input"
+            name="search"
+            type="search"
+            placeholder="Ej. Daft Punk"
+            autocomplete="off"
+            required
+          />
+          <button type="submit">Buscar</button>
+        </form>
+      </header>
+
+      <section class="results-section" aria-labelledby="results-title">
+        <div class="section-heading">
+          <h2 id="results-title">Resultados</h2>
+          <span id="results-count"></span>
+        </div>
+        <div id="results" class="results-grid"></div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
