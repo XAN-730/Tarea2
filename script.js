@@ -3,6 +3,29 @@ const searchInput = document.querySelector("#search-input");
 const resultsContainer = document.querySelector("#results");
 const resultsCount = document.querySelector("#results-count");
 
+function searchWithJsonp(apiUrl) {
+  return new Promise((resolve, reject) => {
+    const callbackName = `itunesCallback_${Date.now()}`;
+    const script = document.createElement("script");
+    const separator = apiUrl.includes("?") ? "&" : "?";
+
+    window[callbackName] = (data) => {
+      delete window[callbackName];
+      script.remove();
+      resolve(data);
+    };
+
+    script.onerror = () => {
+      delete window[callbackName];
+      script.remove();
+      reject(new Error("No fue posible conectar con iTunes."));
+    };
+
+    script.src = `${apiUrl}${separator}callback=${callbackName}`;
+    document.body.appendChild(script);
+  });
+}
+
 searchForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -19,13 +42,20 @@ searchForm.addEventListener("submit", async (event) => {
   resultsCount.textContent = "";
 
   try {
-    const response = await fetch(apiUrl);
+    let data;
 
-    if (!response.ok) {
-      throw new Error(`La API respondió con el estado ${response.status}`);
+    if (window.location.protocol === "file:") {
+      data = await searchWithJsonp(apiUrl);
+    } else {
+      const response = await fetch(apiUrl);
+
+      if (!response.ok) {
+        throw new Error(`La API respondió con el estado ${response.status}`);
+      }
+
+      data = await response.json();
     }
 
-    const data = await response.json();
     const songs = data.results || [];
 
     resultsContainer.innerHTML = "";
