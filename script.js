@@ -3,6 +3,22 @@ const searchInput = document.querySelector("#search-input");
 const resultsContainer = document.querySelector("#results");
 const resultsCount = document.querySelector("#results-count");
 
+document.addEventListener(
+  "play",
+  (event) => {
+    if (event.target.tagName !== "AUDIO") {
+      return;
+    }
+
+    document.querySelectorAll("audio").forEach((audio) => {
+      if (audio !== event.target) {
+        audio.pause();
+      }
+    });
+  },
+  true
+);
+
 function searchWithJsonp(apiUrl) {
   return new Promise((resolve, reject) => {
     const callbackName = `itunesCallback_${Date.now()}`;
