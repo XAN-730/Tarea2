@@ -3,38 +3,69 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Buscador de canciones</title>
+    <meta
+      name="description"
+      content="Descubre canciones y escucha muestras de audio con iTunes."
+    />
+    <title>Frecuencia | Descubrimiento musical</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
     <main class="app">
       <header class="hero">
-        <p class="eyebrow">iTunes Search API</p>
-        <h1>Encuentra tu próxima canción</h1>
+        <div class="hero-topline">
+          <span class="brand-mark" aria-hidden="true">◈</span>
+          <span class="eyebrow">MUSIC DISCOVERY / 01</span>
+        </div>
+        <h1>Encuentra tu próxima <span>frecuencia</span></h1>
         <p class="intro">
-          Busca canciones y escucha una muestra directamente desde el navegador.
+          Explora nuevas canciones, encuentra tu pulso y escucha una muestra
+          directamente desde la señal musical de iTunes.
         </p>
 
         <form id="search-form" class="search-form">
           <label class="sr-only" for="search-input">Buscar canciones</label>
+          <span class="search-icon" aria-hidden="true">⌕</span>
           <input
             id="search-input"
             name="search"
             type="search"
-            placeholder="Ej. Daft Punk"
+            placeholder="Busca un artista, álbum o canción"
             autocomplete="off"
             required
           />
-          <button type="submit">Buscar</button>
+          <button type="submit">
+            <span>Explorar</span>
+            <span aria-hidden="true">↗</span>
+          </button>
         </form>
+        <p class="hero-hint">Muestras de audio de hasta 30 segundos</p>
       </header>
 
       <section class="results-section" aria-labelledby="results-title">
         <div class="section-heading">
-          <h2 id="results-title">Resultados</h2>
-          <span id="results-count"></span>
+          <div>
+            <p class="section-kicker">AUDIO PREVIEW</p>
+            <h2 id="results-title">Tu mapa sonoro</h2>
+          </div>
+          <span id="results-count" class="results-count"></span>
         </div>
-        <div id="results" class="results-grid"></div>
+        <div id="results" class="results-grid" aria-live="polite">
+          <div class="empty-state">
+            <span class="empty-icon" aria-hidden="true">◌</span>
+            <h3>La exploración comienza aquí</h3>
+            <p>Busca una señal musical para llenar tu mapa de frecuencias.</p>
+          </div>
+        </div>
       </section>
     </main>
 
